@@ -8,3 +8,4 @@ Just clone the whole repo and run the html file in it
 - Bubble Sort
 - Selection Sort
 - Insertion Sort
+- Quick Sort
