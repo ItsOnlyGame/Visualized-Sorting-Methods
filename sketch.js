@@ -10,8 +10,8 @@ var r = 255;
 var g = 0;
 var b = 0;
 
-var mode = "Bubble Sort";
-var sel;
+var selection;
+var currentSort;
 
 function setup() {
   createCanvas(WIDTH, HEIGHT);
@@ -22,48 +22,71 @@ function setup() {
 	}
 
   shuffle(arr, true);
-  frameRate(500);  
+  frameRate(60);  
 
-  sel = createSelect();
-  sel.option('Bubble Sort');
-  sel.option('Selection Sort');
-  sel.option('Insertion Sort');
-  sel.changed(modeReset);
+  selection = createSelect();
+  selection.option('Bubble Sort');
+  selection.option('Selection Sort');
+  selection.option('Insertion Sort');
+  selection.option('Quick Sort');
+  selection.changed(modeReset);
+
+  resetButton = createButton("Reset");
+  resetButton.mousePressed(modeReset);
+
+  modeReset();
 }
 
 function draw() {
 	background(51);
 	stroke(r, g, b);
 	strokeWeight(4);
+	
+	changeColor(5);
 
-	switch(mode) {
-		case "Bubble Sort":
-			bubbleSort(arr);
-			break;
-
-		case "Selection Sort":
-			selectionSort(arr);
-			break;
-
-		case "Insertion Sort": 
-			insertionsSort(arr);
-			break;
-	}
-  	changeColor(5);
+    for (var i = 0; i < arr.length; i++) {
+        line(i + (PADDING * i), HEIGHT, i + (PADDING * i), HEIGHT - arr[i]);
+    }
 } 
 
-function modeReset() {
+async function modeReset() {
+	if (currentSort != undefined) {
+		await currentSort.end();
+	}
+
+
 	for (var i = 0; i < HEIGHT; i++) {
 		arr[i] = i;
 	}
-	reset();
-	mode = sel.value();
 	shuffle(arr, true);
+	
+	switch(selection.value()) {
+		case "Bubble Sort":
+			currentSort = new BubbleSort();
+			currentSort.sort();
+			break;
+
+		case "Selection Sort":
+			currentSort = new SelectionSort();
+			currentSort.sort();
+			break;
+
+		case "Insertion Sort": 
+			currentSort = new InsertionSort();
+			currentSort.sort();
+			break;
+
+		case "Quick Sort":
+			currentSort = new QuickSort();
+			currentSort.sort(0, arr.length - 1);
+			break;
+	}
+	
 }
 
 function keyPressed() {
 	if (keyCode === ENTER) {
-		modeReset
+		modeReset();
 	}
 }
 
