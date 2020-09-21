@@ -14,33 +14,33 @@ var selection;
 var currentSort;
 
 function setup() {
-  createCanvas(WIDTH, HEIGHT);
-  background(153);
-  
+	createCanvas(WIDTH, HEIGHT);
+	background(153);
+	
 	for (var i = 0; i < HEIGHT; i++) {
 		arr[i] = i;
 	}
 
-  shuffle(arr, true);
-  frameRate(60);  
+	shuffle(arr, true);
+	frameRate(60);  
 
-  selection = createSelect();
-  selection.option('Bubble Sort');
-  selection.option('Selection Sort');
-  selection.option('Insertion Sort');
-  selection.option('Quick Sort');
-  selection.changed(modeReset);
+	selection = createSelect();
+	selection.option('Bubble Sort');
+	selection.option('Selection Sort');
+	selection.option('Insertion Sort');
+	selection.option('Quick Sort');
+	selection.changed(modeReset);
 
-  resetButton = createButton("Reset");
-  resetButton.mousePressed(modeReset);
+	resetButton = createButton("Reset");
+	resetButton.mousePressed(modeReset);
 
-  modeReset();
+	modeReset();
 }
 
 function draw() {
 	background(51);
 	stroke(r, g, b);
-	strokeWeight(4);
+	strokeWeight(1);
 	
 	changeColor(5);
 
@@ -91,34 +91,34 @@ function keyPressed() {
 }
 
 function changeColor(speed) {
-  if (state == 0){
-	g += speed;
-	if(g == 255)
-		state = 1;
-  }
-  if (state == 1){
-	  r -= speed;
-	  if(r == 0)
-		  state = 2;
-  }
-  if (state == 2){
-	  b += speed;
-	  if(b == 255)
-		  state = 3;
-  }
-  if (state == 3){
-	  g -= speed;
-	  if(g == 0)
-		  state = 4;
-  }
-  if (state == 4){
-	  r += speed;
-	  if(r == 255)
-		  state = 5;
-  }
-  if (state == 5){
-	  b -= speed;
-	  if(b == 0)
-		  state = 0;
-  }
+	if (state == 0){
+		g += speed;
+		if(g == 255)
+			state = 1;
+	}
+	if (state == 1){
+		r -= speed;
+		if(r == 0)
+			state = 2;
+	}
+	if (state == 2){
+		b += speed;
+		if(b == 255)
+			state = 3;
+	}
+	if (state == 3){
+		g -= speed;
+		if(g == 0)
+			state = 4;
+	}
+	if (state == 4){
+		r += speed;
+		if(r == 255)
+			state = 5;
+	}
+	if (state == 5){
+		b -= speed;
+		if(b == 0)
+			state = 0;
+	}
 }
